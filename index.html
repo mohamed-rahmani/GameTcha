@@ -3,12 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  href="index.css" />
-    <script type="text/javascript" src="/games/snake/main.js"></script>
-    <script type="text/javascript" src="/games/tetris/main.js"></script>
+    <link rel="stylesheet" href="index.css" />
     <title>GameTcha</title>
 </head>
 <body>
-    <h1 class="app-title">GameTcha</h1>
+    <div class="center-container">
+        <h1 class="app-title">GameTcha</h1>
+        <button class="button-open-modal" id="openModal">Déclencher le captcha</button>
+        <div class="overlay" id="overlay"></div>
+
+        <div class="modal" id="modal">
+            <div class="header-modal">GameTcha</div>
+            <div class="game-container">
+            </div>
+            <div class="footer-modal">
+                <button id="changeGame">Changer de jeu</button>
+                <button id="closeModal">Fermer</button>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
