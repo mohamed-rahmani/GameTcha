@@ -39,6 +39,7 @@ body  {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
+    border-radius: 1rem;
     background-color: white;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     z-index: 1000;
@@ -61,19 +62,23 @@ body  {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: blue;
+    background-color: #5BBCFF;
     padding: 20px;
     color: white;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
   }
 
   .modal .header-modal #captcha-title {
     font-weight: bold;
     font-size: xx-large;
+    -webkit-text-stroke: 1px black;
   }
 
   .modal .header-modal #score {
     font-weight: bold;
     font-size: medium;
+    color: black;
   }
 
   .modal .footer-modal {
@@ -84,7 +89,7 @@ body  {
   }
 
   .modal .footer-modal #closeModal {
-    background-color: blue;
+    background-color: #0E62FF;
     color: white;
     font-weight: bold;
     font-size: medium;
@@ -94,7 +99,7 @@ body  {
     padding-bottom: 10px;
     padding-right: 20px;
     padding-left: 20px;
-    border-radius: 0.2rem;
+    border-radius: 2rem;
   }
 
   .modal .footer-modal #startGame {
@@ -108,7 +113,7 @@ body  {
     padding-bottom: 10px;
     padding-right: 20px;
     padding-left: 20px;
-    border-radius: 0.2rem;
+    border-radius: 2rem;
   }
 
   .modal .footer-modal #resetGame {
@@ -123,11 +128,11 @@ body  {
     padding-bottom: 10px;
     padding-right: 20px;
     padding-left: 20px;
-    border-radius: 0.2rem;
+    border-radius: 2rem;
   }
 
   .modal .footer-modal #changeGame {
-    background-color: #f8f8f8;
+    background-color: #D9D9D9;
     color: black;
     font-weight: bold;
     font-size: medium;
@@ -137,7 +142,7 @@ body  {
     padding-bottom: 10px;
     padding-right: 20px;
     padding-left: 20px;
-    border-radius: 0.2rem;
+    border-radius: 2rem;
   }
 
 .body-tetris {
