@@ -10,24 +10,29 @@
     <div class="center-container">
         <h1 class="app-title">GameTcha</h1>
         <button class="button-open-modal" id="openModal">Déclencher le captcha</button>
+        <!-- Overlay pour la modal -->
         <div class="overlay" id="overlay"></div>
 
+        <!-- Modal principale -->
         <div class="modal" id="modal">
             <div class="header-modal">
-                <p id="captcha-title">GameTcha</p>
+                <h2 id="captcha-title">GameTcha</h2>
                 <p id="score">Score : 0</p>
             </div>
             <div class="game-container">
-                <div class="body-tetris">
-                    <div class="game-tetris" id="tetris"></div>
+                <!-- Jeu Snake -->
+                <canvas id="snake" width="500" height="500" style="display: none;"></canvas>
+                
+                <!-- Puzzle Game -->
+                <div class="puzzle-container" id="puzzle" style="display: none;">
+                    <!-- Le Puzzle sera généré dynamiquement ici -->
                 </div>
-                <canvas id="snake" width="500" height="500"></canvas>
             </div>
             <div class="footer-modal">
-                <button id="changeGame">Changer de jeu</button>
-                <button id="startGame">Commencer</button>
-                <button id="resetGame">Recommencer</button>
-                <button id="closeModal">Fermer</button>
+                <button id="changeGame" class="button">Changer de jeu</button>
+                <button id="startGame" class="button">Commencer</button>
+                <button id="resetGame" class="button">Recommencer</button>
+                <button id="closeModal" class="button">Fermer</button>
             </div>
         </div>
     </div>
