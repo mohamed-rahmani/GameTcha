@@ -8,16 +8,24 @@
 </head>
 <body>
     <div class="center-container">
-        <h1 class="app-title">GameTcha</h1>
+        <h1 class="app-title">GameTchapga</h1>
         <button class="button-open-modal" id="openModal">Déclencher le captcha</button>
         <div class="overlay" id="overlay"></div>
 
         <div class="modal" id="modal">
-            <div class="header-modal">GameTcha</div>
+            <div class="header-modal">
+                <p id="captcha-title">GameTcha</p>
+                <p id="score">Score : 0</p>
+            </div>
             <div class="game-container">
+                <div class="body-tetris">
+                    <div class="game-tetris" id="tetris"></div>
+                </div>
             </div>
             <div class="footer-modal">
                 <button id="changeGame">Changer de jeu</button>
+                <button id="startGame">Commencer</button>
+                <button id="resetGame">Recommencer</button>
                 <button id="closeModal">Fermer</button>
             </div>
         </div>
