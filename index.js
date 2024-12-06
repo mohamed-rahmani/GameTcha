@@ -60,7 +60,7 @@ changeGame.addEventListener("click", () => {
 initRandomGame();
 
 // Tetris
-let score = 0;
+let tetrisScore = 0;
 let isStart = false;
 
 const scoreDisplay = document.getElementById('score');
@@ -197,13 +197,13 @@ function clearRows() {
 
 function updateScore(lines) {
     const points = [0, 40, 100, 300, 1200]; // Points par nombre de lignes supprimées (selon Tetris standard)
-    score += points[lines];
-    scoreDisplay.textContent = `Score : ${score}`;
+    tetrisScore += points[lines];
+    scoreDisplay.textContent = `Score : ${tetrisScore}`;
 }
 
 // Fonction pour arrêter le jeu
 function gameOver() {
-    clearInterval(0); // Arrête la boucle de jeu
+    clearInterval(interval); // Arrête la boucle de jeu
     isStart = false;
     buttonStart.style.display = "none";
     resetButton.style.display = "block"; // Affiche le bouton reset
@@ -236,8 +236,8 @@ function startGame() {
         isStart = true;
         buttonStart.style.display = "none";
         resetButton.style.display = "none";
-        score = 0; // Réinitialise le score
-        scoreDisplay.textContent = `Score : ${score}`;
+        tetrisScore = 0; // Réinitialise le score
+        scoreDisplay.textContent = `Score : ${tetrisScore}`;
         clearBoard(); // Nettoie le tableau
         createBoard();
         spawnPiece();
@@ -254,18 +254,19 @@ function resetGame() {
     createBoard();
     spawnPiece();
     interval = setInterval(gameLoopTetris, 500);
-    score = 0; // Réinitialise le score
-    scoreDisplay.textContent = `Score : ${score}`;
+    tetrisScore = 0; // Réinitialise le score
+    scoreDisplay.textContent = `Score : ${tetrisScore}`;
 }
 
 // Ne lancez le jeu que si `isStart` est vrai
 function gameLoopTetris() {
     if (isStart) {
-        if(score == 40) {
-            closeModal();
+        if(tetrisScore == 40) {
+            alert("CAPTCHA REUSSI !");
             clearBoard(); // Réinitialise le tableau
             createBoard();
-            score = 0;
+            tetrisScore = 0;
+            closeModal();
         } else {
             movePiece(0, 1);
         }
@@ -288,7 +289,7 @@ let snake = [
 ];
 let direction = { x: 1, y: 0 };
 let food = { x: Math.floor(Math.random() * tiles), y: Math.floor(Math.random() * tiles) };
-score = 0;
+let snakeScore = 0;
 let gameSnakeOver = false;
 let lastUpdateTime = 0;
 const snakeSpeed = 170;
@@ -325,11 +326,14 @@ function updateSnake() {
 
     // Check if snake eats the food
     if (head.x === food.x && head.y === food.y) {
-        score++;
-        if (score == 3) {
-            closeModal()
+        snakeScore++;
+        if (snakeScore == 3) {
+            alert("CAPTCHA REUSSI !");
+            snakeScore = 0;
+            closeModal();
+            return;
         } else {
-            scoreDisplay.textContent = `Score : ${score}`;
+            scoreDisplay.textContent = `Score : ${snakeScore}`;
             food = { x: Math.floor(Math.random() * tiles), y: Math.floor(Math.random() * tiles) };
         }
     } else {
