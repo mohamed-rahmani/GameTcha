@@ -140,8 +140,8 @@ body  {
     border-radius: 0.2rem;
   }
 
-.body-tetris {
-  display: flex;
+#body-tetris {
+  display: none;
   justify-content: center;
   align-items: center;
   margin: 0;
@@ -168,3 +168,9 @@ body  {
 .I { background-color: #0ff; } /* Cyan */
 .L { background-color: #ffa500; } /* Orange */
 .J { background-color: #00f; } /* Bleu */
+
+canvas {
+  display: none;
+  background-color: #222;
+  border: 1px solid #555;
+}

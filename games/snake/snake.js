@@ -1,6 +1,6 @@
 const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
-    const startButton = document.getElementById('startButton');
+    const startButton = document.getElementById('startGame');
 
     const tileSize = 20;
     const canvasSize = 400;

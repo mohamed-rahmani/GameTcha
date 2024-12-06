@@ -21,6 +21,29 @@ openModalButton.addEventListener('click', openModal);
 closeModalButton.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
+const tetrisGame = document.getElementById("body-tetris");
+const snakeGame = document.getElementById("snake");
+
+let randomGame = Math.floor(Math.random() * 1);
+
+if (randomGame == 1) {
+    tetrisGame.style.display = "flex";
+} else {
+    snakeGame.style.display = "block";
+}
+
+const changeGame = document.getElementById("changeGame");
+
+changeGame.addEventListener('click', () => {
+    if (tetrisGame.style.display == "flex") {
+        tetrisGame.style.display == "none";
+        snakeGame.style.display = "block";
+    } else {
+        tetrisGame.style.display == "flex";
+        snakeGame.style.display = "none";
+    }
+})
+
 // Tetris
 let score = 0;
 let isStart = false;
@@ -220,14 +243,6 @@ function resetGame() {
     scoreDisplay.textContent = `Score : ${score}`;
 }
 
-// Fonction pour arrêter le jeu
-function gameOver() {
-    isStart = false;
-    clearInterval(interval); // Arrête la boucle de jeu
-    buttonStart.style.display = "none";
-    resetButton.style.display = "block"; // Affiche le bouton reset
-}
-
 // Ne lancez le jeu que si `isStart` est vrai
 function gameLoop() {
     if (isStart) {
@@ -243,3 +258,105 @@ function gameLoop() {
         movePiece(0, 0);
     }
 }
+
+const canvas = document.getElementById('snake');
+const ctx = canvas.getContext('2d');
+const startButton = document.getElementById('startGame');
+
+const tileSize = 20;
+const canvasSize = 400;
+const tiles = canvasSize / tileSize;
+
+let snake = [
+    { x: 5, y: 5 },
+];
+let direction = { x: 1, y: 0 };
+let food = { x: Math.floor(Math.random() * tiles), y: Math.floor(Math.random() * tiles) };
+score = 0;
+let gameSnakeOver = false;
+let lastUpdateTime = 0;
+const snakeSpeed = 170;
+
+function drawTile(x, y, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+}
+
+function drawSnake() {
+    snake.forEach(segment => drawTile(segment.x, segment.y, 'lime'));
+}
+
+function drawFood() {
+    drawTile(food.x, food.y, 'red');
+}
+
+function updateSnake() {
+    const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+
+    // Check for collisions with walls
+    if (head.x < 0 || head.x >= tiles || head.y < 0 || head.y >= tiles) {
+        gameSnakeOver = true;
+        return;
+    }
+
+    // Check for collisions with itself
+    if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+        gameSnakeOver = true;
+        return;
+    }
+
+    snake.unshift(head);
+
+    // Check if snake eats the food
+    if (head.x === food.x && head.y === food.y) {
+        score++;
+        if (score == 3) {
+            closeModal()
+        } else {
+            scoreDisplay.textContent = `Score : ${score}`;
+            food = { x: Math.floor(Math.random() * tiles), y: Math.floor(Math.random() * tiles) };
+        }
+    } else {
+        snake.pop();
+    }
+}
+
+function gameLoop(timestamp) {
+    if (gameSnakeOver) {
+        scoreDisplay.textContent = `Game Over`;
+        document.location.reload();
+        return;
+    }
+
+    if (timestamp - lastUpdateTime > snakeSpeed) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawSnake();
+        drawFood();
+        updateSnake();
+        lastUpdateTime = timestamp;
+    }
+
+    requestAnimationFrame(gameLoop);
+}
+
+document.addEventListener('keydown', event => {
+    switch (event.key) {
+    case 'ArrowUp':
+        if (direction.y === 0) direction = { x: 0, y: -1 };
+        break;
+    case 'ArrowDown':
+        if (direction.y === 0) direction = { x: 0, y: 1 };
+        break;
+    case 'ArrowLeft':
+        if (direction.x === 0) direction = { x: -1, y: 0 };
+        break;
+    case 'ArrowRight':
+        if (direction.x === 0) direction = { x: 1, y: 0 };
+        break;
+    }
+});
+
+startButton.addEventListener('click', () => {
+    startButton.style.display = 'none';
+    requestAnimationFrame(gameLoop);
+});
