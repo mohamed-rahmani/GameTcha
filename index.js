@@ -21,28 +21,43 @@ openModalButton.addEventListener('click', openModal);
 closeModalButton.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 
-const tetrisGame = document.getElementById("body-tetris");
+const tetrisGame = document.querySelector(".body-tetris");
 const snakeGame = document.getElementById("snake");
-
-let randomGame = Math.floor(Math.random() * 1);
-
-if (randomGame == 1) {
-    tetrisGame.style.display = "flex";
-} else {
-    snakeGame.style.display = "block";
-}
-
 const changeGame = document.getElementById("changeGame");
 
-changeGame.addEventListener('click', () => {
-    if (tetrisGame.style.display == "flex") {
-        tetrisGame.style.display == "none";
-        snakeGame.style.display = "block";
+// Initialisation : choisir un jeu au hasard
+function initRandomGame() {
+    const randomGame = Math.floor(Math.random() * 2); // 0 ou 1
+    if (randomGame === 0) {
+      showTetris();
     } else {
-        tetrisGame.style.display == "flex";
-        snakeGame.style.display = "none";
+      showSnake();
     }
-})
+}
+  
+// Fonction pour afficher Tetris et cacher Snake
+function showTetris() {
+    tetrisGame.style.display = "block"; // Afficher Tetris
+    snakeGame.style.display = "none";  // Cacher Snake
+}
+  
+// Fonction pour afficher Snake et cacher Tetris
+function showSnake() {
+    tetrisGame.style.display = "none";  // Cacher Tetris
+    snakeGame.style.display = "block"; // Afficher Snake
+}
+  
+// Gestion du bouton pour changer de jeu
+changeGame.addEventListener("click", () => {
+    if (tetrisGame.style.display === "block") {
+      showSnake();
+    } else {
+      showTetris();
+    }
+});
+  
+// Initialisation du jeu au chargement
+initRandomGame();
 
 // Tetris
 let score = 0;
@@ -226,7 +241,7 @@ function startGame() {
         clearBoard(); // Nettoie le tableau
         createBoard();
         spawnPiece();
-        interval = setInterval(gameLoop, 500);
+        interval = setInterval(gameLoopTetris, 500);
     }
 }
 
@@ -238,13 +253,13 @@ function resetGame() {
     clearBoard(); // Réinitialise le tableau
     createBoard();
     spawnPiece();
-    interval = setInterval(gameLoop, 500);
+    interval = setInterval(gameLoopTetris, 500);
     score = 0; // Réinitialise le score
     scoreDisplay.textContent = `Score : ${score}`;
 }
 
 // Ne lancez le jeu que si `isStart` est vrai
-function gameLoop() {
+function gameLoopTetris() {
     if (isStart) {
         if(score == 40) {
             closeModal();
@@ -259,6 +274,7 @@ function gameLoop() {
     }
 }
 
+// Snake
 const canvas = document.getElementById('snake');
 const ctx = canvas.getContext('2d');
 const startButton = document.getElementById('startGame');
@@ -321,9 +337,8 @@ function updateSnake() {
     }
 }
 
-function gameLoop(timestamp) {
+function gameLoopSnake(timestamp) {
     if (gameSnakeOver) {
-        scoreDisplay.textContent = `Game Over`;
         document.location.reload();
         return;
     }
@@ -336,7 +351,7 @@ function gameLoop(timestamp) {
         lastUpdateTime = timestamp;
     }
 
-    requestAnimationFrame(gameLoop);
+    requestAnimationFrame(gameLoopSnake);
 }
 
 document.addEventListener('keydown', event => {
@@ -358,5 +373,5 @@ document.addEventListener('keydown', event => {
 
 startButton.addEventListener('click', () => {
     startButton.style.display = 'none';
-    requestAnimationFrame(gameLoop);
+    requestAnimationFrame(gameLoopSnake);
 });

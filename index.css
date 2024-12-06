@@ -140,7 +140,7 @@ body  {
     border-radius: 0.2rem;
   }
 
-#body-tetris {
+.body-tetris {
   display: none;
   justify-content: center;
   align-items: center;
