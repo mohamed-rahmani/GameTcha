@@ -179,3 +179,36 @@ canvas {
   background-color: #222;
   border: 1px solid #555;
 }
+
+/*puzzle*/
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.puzzle-container {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.piece {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.piece.correct {
+  border-color: #4caf50;
+}
